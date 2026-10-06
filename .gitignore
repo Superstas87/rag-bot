@@ -1,0 +1,33 @@
+# Секреты
+.env
+*.env
+!.env.example
+
+# Docker
+*.log
+
+# ===== PYTHON =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# ===== ДАННЫЕ =====
+books/*.pdf
+books/*.PDF
+model-cache/
+qdrant-data/
+
+# ===== IDE =====
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===== OS =====
+.DS_Store
+Thumbs.db

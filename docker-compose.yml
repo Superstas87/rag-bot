@@ -1,0 +1,28 @@
+
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: rag-qdrant
+    ports:
+      - '6333:6333'
+      - '6334:6334'
+    volumes:
+      - /home/stas/rag-bot/qdrant-data:/qdrant/storage
+    restart: unless-stopped
+
+  bot:
+    build: ./bot
+    env_file:
+      - .env                    
+    container_name: rag-bot
+    depends_on:
+      - qdrant
+    volumes:
+      - /media/sf_ML/rag-bot/books:/app/books
+      - /home/stas/rag-bot/model-cache:/root/.cache/fastembed
+
+    environment:
+      - HTTP_PROXY=http://172.17.0.1:33993
+      - HTTPS_PROXY=http://172.17.0.1:33993
+      - NO_PROXY=localhost,127.0.0.1,qdrant,llm.api.cloud.yandex.net,*.yandex.net
+    restart: unless-stopped
